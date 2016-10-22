@@ -5,6 +5,9 @@ def main():
 	"""
 	Zipfile password cracker using a brute-force dictionary attack
 	"""
+	if len(sys.argv) < 3:
+		print "bf: bf.py [zipfile] [dictionary]"
+		return
 	zipfilename = sys.argv[1]
 	dictionary = sys.argv[2]
 
