@@ -5,7 +5,7 @@ import sys
 def main():
 	"""
 	"""
-	list_ = [".backup",".bck",".old",".save",".bak",".sav","~",".copy",".old",".orig",".tmp",".txt",".back",".bkp",".bac",".tar",".gz",".tar.gz",".zip",".rar", ".ini", ".ini.php", ".php"]
+	list_ = [".backup",".bck",".old",".save",".bak",".sav","~",".copy",".old",".orig",".tmp",".txt",".back",".bkp",".bac",".tar",".gz",".tar.gz",".zip",".rar", ".ini", ".inc.php", ".php"]
 	hote = sys.argv[1] #url
 
 	fichier = sys.argv[2] #file name ec: index
