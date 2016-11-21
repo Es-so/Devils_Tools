@@ -9,6 +9,8 @@ from parse import *
 from math import sqrt
 import sys
 import base64
+import codecs
+import zlib
 
 #creation des variables utiles______________________
 
@@ -55,7 +57,7 @@ time.sleep(4);
 #_1st_mess__________________________________________________________________
 
 
-p1 = "!ep2" ; #sent <-----*
+p1 = "!ep4" ; #sent <-----*
 
 
 sendMessage(TARGET, p1);
@@ -89,12 +91,35 @@ result = re.findall(line, reponse);
 
 #EX ENCODING_STRING__________________/\
 
-final_result = base64.b64decode(result[0]);
+# final_result = base64.b64decode(result[0]);
 
 #____________________________________/\
 
 
 
+
+#EX ROMSROLL_________________________/\
+
+# final_result = codecs.decode(result[0], 'rot_13');
+
+#____________________________________/\
+
+
+
+
+#EX UNCOMPRESS_ME____________________/\
+
+final_result = zlib.decompress(base64.b64decode(result[0]));
+
+#____________________________________/\
+
+
+
+#EX XXX______________________________/\
+
+#final_result = 
+
+#____________________________________/\
 
 
 
@@ -108,7 +133,7 @@ print "CHECK_VALUE[" + final_result + "]\n";
 #_2nd_mess___________________________
 
 
-p1 = "!ep2 -rep " + str(final_result); #sent <-----*
+p1 = "!ep4 -rep " + str(final_result); #sent <-----*
 
 
 sendMessage(TARGET, p1);
