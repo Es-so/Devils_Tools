@@ -89,7 +89,7 @@ result = re.findall(line, reponse);
 
 #EX ENCODING_STRING__________________/\
 
-print base64.b64decode('Um9vdE1l') + "<<<<<<<<";
+final_result = base64.b64decode(result[0]);
 
 #____________________________________/\
 
@@ -99,17 +99,16 @@ print base64.b64decode('Um9vdE1l') + "<<<<<<<<";
 
 
 
+# final_result = ''; #CHECKING_______________
 
-result = ''; #CHECKING_______________
-
-print "CHECK_VALUE[" + result + "]\n";
+print "CHECK_VALUE[" + final_result + "]\n";
 
 
 
 #_2nd_mess___________________________
 
 
-p1 = "!ep2 -rep AA" + str(result); #sent <-----*
+p1 = "!ep2 -rep " + str(final_result); #sent <-----*
 
 
 sendMessage(TARGET, p1);
