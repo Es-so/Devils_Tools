@@ -8,6 +8,7 @@ import re
 from parse import *
 from math import sqrt
 import sys
+import base64
 
 #creation des variables utiles______________________
 
@@ -27,6 +28,8 @@ print ("\nResume:\n"\
 "TARGET: "	+ TARGET + "\n");
 
 #_____________________________________________________
+
+line = NICK + " :(.*)\\r";
 
 def sendMessage(target , msg):
   s.send("PRIVMSG "+ target +" :"+ msg +"\r\n");
@@ -48,32 +51,67 @@ print s.recv(8192);
 
 time.sleep(4);
 
-print('__________________________________________________________________');
 
-p1 = "!ep1" ;
+#_1st_mess__________________________________________________________________
+
+
+p1 = "!ep2" ; #sent <-----*
+
+
 sendMessage(TARGET, p1);
 time.sleep(1);
-
+reponse = s.recv(512);
 
 print('__________________________________________________________________');
-
-reponse = s.recv(256);
-line = NICK + " :(.*)\\r";
-result = re.findall(line, reponse);
 
 print reponse;
 
-tt = result[0].split('/');
-x = float(tt[0]);
-x = sqrt(x);
-y = float(tt[1]);
-x = x * y;
-x = float("{0:.2f}".format(x));
+print('__________________________________________________________________');
 
-print "CHECK_VALUE[" + str(x) + "]\n";
+result = re.findall(line, reponse);
+
+#end________________________________________________________________________
 
 
-p1 = "!ep1 -rep " + str(x);
+
+#EX BACK_2_SCHOOL____________________/\
+
+# tt = result[0].split('/');
+# x = float(tt[0]);
+# x = sqrt(x);
+# y = float(tt[1]);
+# x = x * y;
+# x = float("{0:.2f}".format(x));
+#____________________________________/\
+
+
+
+
+#EX ENCODING_STRING__________________/\
+
+print base64.b64decode('Um9vdE1l') + "<<<<<<<<";
+
+#____________________________________/\
+
+
+
+
+
+
+
+
+result = ''; #CHECKING_______________
+
+print "CHECK_VALUE[" + result + "]\n";
+
+
+
+#_2nd_mess___________________________
+
+
+p1 = "!ep2 -rep AA" + str(result); #sent <-----*
+
+
 sendMessage(TARGET, p1);
 time.sleep(2);
 
