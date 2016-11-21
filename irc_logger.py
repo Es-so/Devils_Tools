@@ -44,12 +44,11 @@ s.send("JOIN "+ CHANNEL +"\r\n");
 
 time.sleep(4);
 print('__________________________________________________________________');
-print s.recv(1024);
+print s.recv(8192);
 
 time.sleep(4);
 
 print('__________________________________________________________________');
-print s.recv(4096);
 
 p1 = "!ep1" ;
 sendMessage(TARGET, p1);
