@@ -17,7 +17,8 @@ br.open("http://challenge01.root-me.org/programmation/ch8/")
 
 br.select_form(nr=0)
 
-br.input_elements[0] = "whatever"
+
+br.forn = "whatever"
 
 response = br.submit()
 
