@@ -1,40 +1,9 @@
 #!/usr/bin/env python
 
-
-
-
-
 import re
 from mechanize import Browser
 
-br = Browser()
-# Ignore robots.txt
-br.set_handle_robots( False )
-# Google demands a useragent that isn't a robot
-br.addheaders = [('User-agent', 'Firefox')]
-
-br.open("http://challenge01.root-me.org/programmation/ch8/")
-
-br.select_form(nr=0)
-
-
-br.forn = "whatever"
-
-response = br.submit()
-
-print response.read()
-
-
-
-
-
-
-
-
-
-
-
-
+#____________CAPTCHA SOLVER______________________________________________
 
 # import sys
 # from PIL import Image
@@ -113,6 +82,26 @@ print response.read()
 #     # for l in final:
 #     #     answer = answer + l[1]
 #     return answer
+
+#________END_CAPTCHA_SOLVER_______________________________________________________
+
+br = Browser()
+# Ignore robots.txt
+br.set_handle_robots( False )
+# Google demands a useragent that isn't a robot
+br.addheaders = [('User-agent', 'Firefox')]
+
+br.open("http://challenge01.root-me.org/programmation/ch8/")
+
+br.select_form(nr=0)
+
+
+br.forn = "whatever"
+
+response = br.submit()
+
+print (response.read())
+
 
 
 # if __name__ == '__main__':

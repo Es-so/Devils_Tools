@@ -68,14 +68,14 @@ def ocr(im, threshold=200, mask="letters.bmp", alphabet="0123456789abcdef"):
     letterlist.append((t[0], alphabet[counter], t[1]))
 
     t = sorted(letterlist)
-    t = t[0:5]  # 5-letter captcha
+    t = t[0:12]  # 5-letter captcha
 
     final = sorted(t, key=lambda e: e[2])
 
     answer = ''.join(map(lambda l: l[1], final))
-    # answer = ""
-    # for l in final:
-    #     answer = answer + l[1]
+    answer = ""
+    for l in final:
+        answer = answer + l[1]
     return answer
 
 
