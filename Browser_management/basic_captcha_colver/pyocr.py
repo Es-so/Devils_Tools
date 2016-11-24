@@ -4,7 +4,7 @@ from PIL import Image
 import sys
 
 
-def ocr(im, threshold=200, mask="letters.bmp", alphabet="0123456789abcdef"):
+def ocr(im, threshold=200, mask="letters.bmp", alphabet="0123456789abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     img = Image.open(im)
     img = img.convert("RGB")
     box = (8, 8, 58, 18)
@@ -73,9 +73,9 @@ def ocr(im, threshold=200, mask="letters.bmp", alphabet="0123456789abcdef"):
     final = sorted(t, key=lambda e: e[2])
 
     answer = ''.join(map(lambda l: l[1], final))
-    answer = ""
-    for l in final:
-        answer = answer + l[1]
+    # answer = ""
+    # for l in final:
+    #     answer = answer + l[1]
     return answer
 
 
