@@ -14,10 +14,13 @@ br.addheaders = [('User-agent', 'Firefox')]
 br.open("http://challenge01.root-me.org/programmation/ch8/")
 
 br.select_form(nr=0)
+tophp = br.response().read()
 
-os.system("rmf find.txt &&\
-    php get_img_captcha.php http://challenge01.root-me.org/programmation/ch8/ &&\
-     tesseract captcha/captcha.png find");
+# print tophp
+
+os.system("rmf find.txt ;\
+    php get_img_captcha.php \'" + tophp + "\' ;\
+    tesseract captcha/captcha.png find");
 
 captcha_file = open('find.txt')
 

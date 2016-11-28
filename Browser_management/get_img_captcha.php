@@ -18,7 +18,7 @@ if ($argc > 1)
 	{
 		foreach ($imgs[1] as $key => $value) {
 			preg_match("/.*\/(.*)$/", $value, $image_name);
-			touch('captcha' . "/" . $image_name[1]);
+			// touch('captcha' . "/" . $image_name[1]);
 			file_put_contents('captcha/captcha.png', file_get_contents($value));
 		}
 	}
