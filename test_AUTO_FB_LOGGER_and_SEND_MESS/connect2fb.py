@@ -14,8 +14,8 @@ PASSWORD = raw_input('MDP: ');
 LOGIN_URL = "https://www.facebook.com"
 TARGET_MP = raw_input('FRIENDS: ');
 TARGET_MP.replace(' ', '.');
-# URL = "https://www.facebook.com/messages/" + TARGET_MP;
-URL = "https://www.facebook.com/messages/victor.danain"
+# URL_MESS = "https://www.facebook.com/messages/" + TARGET_MP;
+URL_MESS = "https://www.facebook.com/messages/victor.danain"
 
 br = Browser()
 # Ignore robots.txt
@@ -29,7 +29,6 @@ br.select_form(nr=0)
 tophp = br.response().read()
 print tophp
 
-
 br['email'] = USERNAME
 br['pass'] = PASSWORD
 
@@ -37,10 +36,39 @@ response = br.submit()
 
 reponse_page = response.read()
 
-print "________________________________________________________________________________\n\n\n"
+print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+________________________________________________________________________________\
+\	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 
 print reponse_page
 
+page_mess = br.open(URL_MESS)
+
+for form in br.forms():
+    print "[" + str(form) + "]"
+
+br.select_form(nr=0)
+br['email'] = USERNAME
+br['pass'] = PASSWORD
+
+response = br.submit()
+
+
+print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+________________________________________________________________________________\
+\	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
+dd = response.read()
+ff = br.response()
+
+print ">>>>" + dd + "<<"
+
+print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+________________________________________________________________________________\
+\	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+form.set_value("rhubarb rhubarb", kind="text", nr=0)
+for form in br.forms():
+    print "[" + str(form) + "]"
 
 
 # import re
@@ -88,3 +116,6 @@ print reponse_page
 
 # if __name__ == '__main__':
 # 	main()
+
+
+# emojiChoices:["✌","😂","😝","😁","😱","👉","🙌","🍻","🔥","🌈","☀","🎈","🌹","💄","🎀","⚽","🎾","🏁","😡","👿","🐻","🐶","🐬","🐟","🍀","👀","🚗","🍎","💝","💙","👌","❤","😍","😉","😓","😳","💪","💩","🍸","🔑","💖","🌟","🎉","🌺","🎶","👠","🏈","⚾","🏆","👽","💀","🐵","🐮","🐩","🐎","💣","👃","👂","🍓","💘","💜","👊","💋","😘","😜","😵","🙏","👋","🚽","💃","💎","🚀","🌙","🎁","⛄","🌊","⛵","🏀","🎱","💰","👶","👸","🐰","🐷","🐍","🐫","🔫","👄","🚲","🍉","💛","💚"]
