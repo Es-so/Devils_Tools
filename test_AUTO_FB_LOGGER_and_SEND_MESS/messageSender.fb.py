@@ -83,4 +83,4 @@ else:
 		print (str(friend[0].name) + "\033[31m [X] \033[39m")
 
 
-print ("\n\033[32m ... End message\033[39m\n")
+print ("\n\033[32m ... End message(s)\033[39m\n")

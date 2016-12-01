@@ -39,59 +39,59 @@ br.set_handle_robots( False )
 br.addheaders = [('User-agent', 'Firefox')]
 br.open(LOGIN_URL)
 
-# print  br.response().read()
+print  br.response().read()
 
-# br.select_form(nr=0)
+br.select_form(nr=0)
 
-# br['email'] = USERNAME
-# br['pass'] = PASSWORD
+br['email'] = USERNAME
+br['pass'] = PASSWORD
 
-# response = br.submit()
-
-
-# print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
-# ________________________________________________________________________________\
-# \	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-
-# reponse_page = response.read()
-# print reponse_page
-
-# page_mess = br.open(URL_MESS)
-
-# for form in br.forms():
-#     print "[" + str(form) + "]"
-
-# br.select_form(nr=0)
-# br['email'] = USERNAME
-# br['pass'] = PASSWORD
-
-# for form in br.forms():
-#     print "[" + str(form) + "]"
+response = br.submit()
 
 
-# response = br.submit()
+print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+________________________________________________________________________________\
+\	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
+reponse_page = response.read()
+print reponse_page
+
+page_mess = br.open(URL_MESS)
+
+for form in br.forms():
+    print "[" + str(form) + "]"
+
+br.select_form(nr=0)
+br['email'] = USERNAME
+br['pass'] = PASSWORD
+
+for form in br.forms():
+    print "[" + str(form) + "]"
 
 
-# print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
-# ________________________________________________________________________________\
-# \	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-
-# dd = response.read()
-# ff = br.response()
-
-# print ">>>>" + dd + "<<"
-
-# print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
-# ________________________________________________________________________________\
-# \	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+response = br.submit()
 
 
-# form.new_control('text','message_body',{'value':''})
-# form.fixup()
-# form['message_body'] = 'input'
+print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+________________________________________________________________________________\
+\	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 
-# for form in br.forms():
-#     print "[" + str(form) + "]"
+dd = response.read()
+ff = br.response()
+
+print ">>>>" + dd + "<<"
+
+print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+________________________________________________________________________________\
+\	\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
+
+form.new_control('text','message_body',{'value':''})
+form.fixup()
+form['message_body'] = 'input'
+
+for form in br.forms():
+    print "[" + str(form) + "]"
 
 client = fbchat.Client(USERNAME, PASSWORD)
 friend = client.getUsers(TARGET)
