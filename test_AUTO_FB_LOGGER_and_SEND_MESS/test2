@@ -1,0 +1,102 @@
+LOGIN/MAIL: MDP: FRIENDS: TARGETS USERS FILE: MESSAGE: Resume:
+USERNAME: khatir.sofiane@gmail.com
+URL: https://www.facebook.com
+MESSAGE: lala
+TARGETS: ['victor danain\n', 'victor brk\n']
+
+Logging in...
+login successful
+victor danain
+<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-
+victor brk
+<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-<-
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<USER Victor Danain (https://www.facebook.com/victor.danain)>
+<Response [200]>
+{'body': 'message personnalise pour: Victor Danain', 'status': '0', 'is_filtered_content_account': False, 'has_attachment': False, 'is_filtered_content_invalid_app': False, 'specific_to_list[0]': 'fbid:1634995587', 'timestamp': 1480545012800, 'threading_id': '<1480545012800:938475207-35b84d5e@mail.projektitan.com>', 'manual_retry_cnt': '0', 'is_filtered_content_quasar': False, 'other_user_fbid': 1634995587, 'timestamp_relative': '23:30', 'signatureID': '0x4157bd2c', 'is_filtered_content': False, 'ui_push_phase': 'V3', 'timestamp_time_passed': '0', 'is_cleared': False, 'is_unread': False, 'ephemeral_ttl_mode:': '0', 'is_forward': False, 'author': 'fbid:100002231648622', 'specific_to_list[1]': 'fbid:100002231648622', 'offline_threading_id': '6209855869368249507', 'is_filtered_content_bh': False, 'source': 'source:chat:web', 'client': 'mercury', 'action_type': 'ma-type:user-generated-message', 'is_spoof_warning': False, 'source_tags[0]': 'source:chat', 'message_id': '6209855869368249507', 'timestamp_absolute': 'Today', 'html_body': False}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<USER Victor Brk (https://www.facebook.com/Victor.oorr)>
+<Response [200]>
+{'body': 'message personnalise pour: Victor Brk', 'status': '0', 'is_filtered_content_account': False, 'has_attachment': False, 'is_filtered_content_invalid_app': False, 'specific_to_list[0]': 'fbid:1232897259', 'timestamp': 1480545013152, 'threading_id': '<1480545013152:832776516-35b84d5e@mail.projektitan.com>', 'manual_retry_cnt': '0', 'is_filtered_content_quasar': False, 'other_user_fbid': 1232897259, 'timestamp_relative': '23:30', 'signatureID': '0x7039daa2', 'is_filtered_content': False, 'ui_push_phase': 'V3', 'timestamp_time_passed': '0', 'is_cleared': False, 'is_unread': False, 'ephemeral_ttl_mode:': '0', 'is_forward': False, 'author': 'fbid:100002231648622', 'specific_to_list[1]': 'fbid:100002231648622', 'offline_threading_id': '6209855870844578470', 'is_filtered_content_bh': False, 'source': 'source:chat:web', 'client': 'mercury', 'action_type': 'ma-type:user-generated-message', 'is_spoof_warning': False, 'source_tags[0]': 'source:chat', 'message_id': '6209855870844578470', 'timestamp_absolute': 'Today', 'html_body': False}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{u'alternateName': u'',
+ u'name': u'Victor Danain', 
+
+ u'firstName': 
+ u'Victor', 
+ u'gender': 2, 
+ u'thumbSrc': 
+ u'https://scontent-cdg2-1.xx.fbcdn.net/v/l/t1.0-1/p32x32/14232596_10208971657562057_1811180678890892618_n.jpg?oh=530c026fb4babaa879687cfdb71667d6&oe=58B990D6', 
+ u'uri': 
+ u'https://www.facebook.com/victor.danain', 
+ u'searchTokens': [
+ u'Danain', 
+ u'Victor'], 
+ u'dir': None, 
+ u'is_friend': True, 
+ u'i18nGender': 16777216, 
+ u'mThumbSrcSmall': None, 
+ u'is_nonfriend_messenger_contact': False, 
+ u'type': 
+ u'friend', 
+ u'id': 
+ u'1634995587', 
+ u'mThumbSrcLarge': None, 
+ u'vanity': 
+ u'victor.danain'}
+
+
+
+
+
+lala
+lala
+lala
+lala
+lala
+lala
+lala
+lala
+lala
+message personnalise pour:
+1634995587
+lala
+message personnalise pour: 1634995587
+lala
+message personnalise pour: Victor Danain
+message personnalise pour mon petit: Victor Danain
+message personnalise pour mon petit: Victor Danain
+mdr
+je viens de voir il est bavard ton bot
+message personnalise pour mon petit: Victor Danain
+message personnalise pour: Victor Danain
+[<fbchat.models.Message instance at 0x10fb15170>, <fbchat.models.Message instance at 0x10fb151b8>, <fbchat.models.Message instance at 0x10fb15200>, <fbchat.models.Message instance at 0x10fb15248>, <fbchat.models.Message instance at 0x10fb15290>, <fbchat.models.Message instance at 0x10fb152d8>, <fbchat.models.Message instance at 0x10fb15320>, <fbchat.models.Message instance at 0x10fb15368>, <fbchat.models.Message instance at 0x10fb153b0>, <fbchat.models.Message instance at 0x10fb153f8>, <fbchat.models.Message instance at 0x10fb15440>, <fbchat.models.Message instance at 0x10fb15488>, <fbchat.models.Message instance at 0x10fb154d0>, <fbchat.models.Message instance at 0x10fb15518>, <fbchat.models.Message instance at 0x10fb15560>, <fbchat.models.Message instance at 0x10fb155a8>, <fbchat.models.Message instance at 0x10fb155f0>, <fbchat.models.Message instance at 0x10fb15638>, <fbchat.models.Message instance at 0x10fb15680>, <fbchat.models.Message instance at 0x10fb156c8>, <fbchat.models.Message instance at 0x10fb15710>]
