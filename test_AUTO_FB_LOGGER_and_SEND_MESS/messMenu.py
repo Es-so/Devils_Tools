@@ -27,12 +27,12 @@ menu_data = {
   'options':[
         { 'title': "Unread messages", 'type': MENU, 'subtitle': "Please select an option...",
         'options': [
-          { 'title': "author", 'type': COMMAND, 'command': 'uid' },
+          { 'title': "nbUnreadBy: author", 'type': COMMAND, 'command': 'uid' },
         ]
         },
         { 'title': "Sent messages", 'type': MENU, 'subtitle': "Please select an option...",
         'options': [
-          { 'title': "author", 'type': COMMAND, 'command': 'ls' },
+          { 'title': "nbUnreadBy: author", 'type': COMMAND, 'command': 'ls' },
         ]
         },
         { 'title': "Send new message", 'type': COMMAND, 'command': 'clear' },
