@@ -10,8 +10,13 @@ import requests
 from lxml import html
 from subprocess import call
 from bs4 import BeautifulSoup
+import json
+from pprint import pprint
+import messClass
+from messClass import messageInfo
 
 os.system("clear")
+# sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 #__________DATA_REQUIEREMENT_____________________________________________________#
 
@@ -35,7 +40,8 @@ def startConnect(browser):
 	browser.select_form(nr=0)
 	browser['email'] = USERNAME
 	browser['pass'] = PASSWORD
-	return browser.submit()
+	browser.submit()
+	return browser
 
 
 def getPage(url):
@@ -52,35 +58,51 @@ def span_nbMess(page_html):
 			return span
 
 
+def getListOfAuthors(data):
+	client = fbchat.Client(USERNAME, PASSWORD)
+	listMess = {}
+	# for Id in ids:
+	# 	print str(Id[0]) + ' | ' + str(ids[0][0])
+	# 	friend_info = client.getUserInfo(str(Id[0]))
+	# 	print friend_info['name']
+	# 	# listMess[friend_info['name']] = ": unread = " + Id[1]
+	# print "__"*45 + "\n"
+	# print str(listMess)
+	print "__"*45 + "\n"
+	# print friend1_info['name']
+
+
 def getAuthorsOfMess(url):
 	messPage = callBrowser(url)
 	for form in messPage.forms():
 		print str(form)
-	response = startConnect(messPage)
-	response = startConnect(messPage)
+	messPage = startConnect(messPage)
+	response = startConnect(messPage).response()
 	print "__"*45 + "\n"*20
-	print response.read()
+	jsRep = re.findall(r"{thread.*thread_fbid:.*unread_count:[0-9]*.*work_user_warning_dismiss_count:{}}",response.read())
+	jsRepTh = re.findall(r'{(thread_id:\"(.).*?thread_fbid:\"([0-9]+)\".*?participants:\[(.*?)\].*?unread_count:([1-9]+).*?\{\})\}',jsRep[0], re.MULTILINE)
+	if (jsRepTh != None):
+		dataMess = messageInfo().userList(jsRepTh)
+		for key, value  in dataMess.iteritems():
+			print key + " => " + str(value)
+		if (dataMess != None):
+			getListOfAuthors(dataMess)
 
+def messagerie():
+	br = getPage(LOGIN_URL)
+	print  br.response().read()
+	print "__"*45 +"\n"*20
+	find = span_nbMess(br.response())
+	nbMess = re.findall(r".*>(.*)<.*", str(find));
+	print nbMess[0]
+	print "__"*45 + "\n"*20
+	if int(nbMess[0]) != 0:
+		getAuthorsOfMess(MESSAGE_URL)
 
+# re.findall'{thread.*thread_fbid:\"([0-9]*)\".*unread_count:([0-9]+).*}'
 
-br = getPage(LOGIN_URL)
-
-
-print  br.response().read()
-print "__"*45 +"\n"*20
-
-
-find = span_nbMess(br.response())
-nbMess = re.findall(r".*>(.*)<.*", str(find));
-
-print nbMess[0]
-print "__"*45 + "\n"*20
-
-
-if int(nbMess[0]) != 0:
-	getAuthorsOfMess(MESSAGE_URL)
-
-
+# {"USER_ID":"100002231648622"
+# ":"100002231648622"},270]]);
 
 
 
