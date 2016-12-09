@@ -51,6 +51,9 @@ print ("\n" + "_" * 60 + "\n\033[33m Resume:\033[39m\n" +
 #__________END_DATA_REQUIEREMENT_________________________________________________#
 
 client = fbchat.Client(USERNAME, PASSWORD);
+friend_info = client.getUserInfo(str(Id[0]))
+
+
 
 print "\n\n\033[33mSending...\033[39m\n"
 

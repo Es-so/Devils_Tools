@@ -9,7 +9,7 @@ screen = curses.initscr()
 curses.noecho() 
 curses.cbreak() 
 curses.start_color() 
-screen.keypad(1) 
+screen.keypad(1)
 
 
 curses.init_pair(1,curses.COLOR_BLACK, curses.COLOR_WHITE) 
@@ -19,25 +19,36 @@ n = curses.A_NORMAL
 MENU = "menu"
 COMMAND = "command"
 EXITMENU = "exitmenu"
-
+MID = "m"  #personal convers
+_ID = "i"  #group
+INFO = 'info'
 
 
 menu_data = {
   'title': "Message Checker", 'type': MENU, 'subtitle': "Please select an option...",
   'options':[
-        { 'title': "Unread messages", 'type': MENU, 'subtitle': "Please select an option...",
+        { 'title': "Unread messages", 'type': MENU, 'subtitle': "Please select an option...", #
         'options': [
-          { 'title': "nbUnreadBy: author", 'type': COMMAND, 'command': 'uid' },
+            { 'title': "author: ", 'type': INFO, 'ID': 'uid', 'nbUnread' : 'x' },
         ]
         },
-        { 'title': "Sent messages", 'type': MENU, 'subtitle': "Please select an option...",
+        { 'title': "Sent messages", 'type': MENU, 'subtitle': "Please select an option...",  #
         'options': [
-          { 'title': "nbUnreadBy: author", 'type': COMMAND, 'command': 'ls' },
+          { 'title': "author: ", 'type': INFO, 'ID': 'uid' },
         ]
         },
-        { 'title': "Send new message", 'type': COMMAND, 'command': 'clear' },
+        { 'title': "Send new message", 'type': COMMAND, 'command': 'clear' },               #
   ]
 }
+
+def fillMenu(menuFormat=menu_data):
+  allMess = messageChecker.getUnread()
+  for key in allMess:
+    if int(key['nbUnread']) > 0:
+      menu_data['options'][0]['options'].append(key)
+
+
+
 
 
 def runmenu(menu, parent):
@@ -92,35 +103,23 @@ def processmenu(menu, parent=None):
     getin = runmenu(menu, parent)
     if getin == optioncount:
         exitmenu = True
-    # elif menu['options'][getin]['type'] == COMMAND:
-    #   curses.def_prog_mode()
-    #   os.system('reset')
-    #   screen.clear() 
-    #   os.system(menu['options'][getin]['command'])
-    #   screen.clear()
-    #   curses.reset_prog_mode()
-    #   curses.curs_set(1)
-    #   curses.curs_set(0)
     elif menu['options'][getin]['type'] == MENU:
           screen.clear()
           processmenu(menu['options'][getin], menu) # display the submenu
           screen.clear()
     elif menu['options'][getin]['type'] == EXITMENU:
           exitmenu = True
+    elif menu['options'][getin]['type'] == MID:
+      x = None
+      screen.clear()
+      screen.addstr(2,2, str(messageChecker.readMess(menu['options'][getin]['ID'])), curses.A_STANDOUT) 
+      # messageChecker.readMess(menu['options'][getin]['ID'])
+      while x !=ord('\n'):
+        x = screen.getch()
+      screen.clear()
 
 # Main program
+fillMenu(menu_data)
 processmenu(menu_data)
 curses.endwin()
 os.system('clear')
-
-
-
-
-
-
-
-
-
-
-
-

@@ -17,8 +17,8 @@ LOGIN_URL = "https://www.facebook.com"
 TARGET_MP = raw_input('FRIENDS: ');
 TARGET = TARGET_MP;
 TARGET_MP.replace(' ', '.');
-# URL_MESS = "https://www.facebook.com/messages/" + TARGET_MP;
-URL_MESS = "https://www.facebook.com/messages/victor.danain"
+URL_MESS = "https://www.facebook.com/messages/" + TARGET_MP;
+# URL_MESS = "https://www.facebook.com/messages/victor.danain"
 
 # __MULTIPLE_MESSAGES_USER_______________________________
 

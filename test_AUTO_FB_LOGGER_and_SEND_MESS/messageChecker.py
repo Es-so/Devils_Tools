@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 import re
 from mechanize import Browser
@@ -24,7 +24,7 @@ USERNAME = raw_input('LOGIN/MAIL: ');
 PASSWORD = raw_input('MDP: ');
 LOGIN_URL = "https://www.facebook.com/login.php"
 MESSAGE_URL = "https://www.facebook.com/messages"
-# client = fbchat.Client(USERNAME, PASSWORD);
+client = fbchat.Client(USERNAME, PASSWORD);
 
 #__________END___________________________________________________________________#
 
@@ -60,49 +60,59 @@ def span_nbMess(page_html):
 
 
 def getListOfAuthors(data):
-	client = fbchat.Client(USERNAME, PASSWORD)
-	listMess = {}
-	# for Id in ids:
-	# 	print str(Id[0]) + ' | ' + str(ids[0][0])
-	# 	friend_info = client.getUserInfo(str(Id[0]))
-	# 	print friend_info['name']
-	# 	# listMess[friend_info['name']] = ": unread = " + Id[1]
-	# print "__"*45 + "\n"
-	# print str(listMess)
-	print "__"*45 + "\n"
-	# print friend1_info['name']
+	listUnread = []
+	i = 0
+	for key, value in data.iteritems():
+		if len(value[2]) > 2:
+			name = value[1]
+		else:
+			name = client.getUserInfo(str(key))['name']
+		listUnread.append(dict({'title' : name,\
+								'type' : value[0],\
+								'ID' : key,\
+								'nbUnread' : value[3]}))
+
+	# print "FINALE:\n" + str(listUnread)
+	return listUnread
 
 
-def getAuthorsOfMess(url):
+def getThreadsOfMess(url):
 	messPage = callBrowser(url)
-	for form in messPage.forms():
-		print str(form)
 	messPage = startConnect(messPage)
 	response = startConnect(messPage).response()
-	print "__"*45 + "\n"*20
-	jsRep = re.findall(r"{thread.*thread_fbid:.*unread_count:[0-9]*.*work_user_warning_dismiss_count:{}}",response.read())
-	jsRepTh = re.findall(r'{(thread_id:\"(.).*?thread_fbid:\"([0-9]+)\".*?participants:\[(.*?)\].*?unread_count:([1-9]+).*?\{\})\}',jsRep[0], re.MULTILINE)
+	jsRepTh = re.findall(r"[^Aa-zZ_]thread_id:\"(.).*?thread_fbid:\"([0-9]+)\".*?participants:\[(.*?)\].*?name:\"(.*?)\".*?unread_count:([0-9]+).*?",response.read())
 	if (jsRepTh != None):
 		dataMess = messageInfo().userList(jsRepTh)
-		for key, value  in dataMess.iteritems():
-			print key + " => " + str(value)
-		if (dataMess != None):
-			getListOfAuthors(dataMess)
+	if (dataMess != None):
+		return getListOfAuthors(dataMess)
 
 def readMess(target):
 	# friend = client.getUsers(target)
 	# friend_info = client.getUserInfo(friend[0].uid)
-	# last_messages = client.getThreadInfo(friend[0].uid,0)
-	# last_messages.reverse()  # messages come in reversed order
-	# print (last_messages)
+	last_messages = client.getThreadInfo(target,0)
+	last_messages.reverse()  # messages come in reversed order
+	# content = client._parseMessage(last_messages)
+	# if 'ms' not in content: return
+	# 	for m in content['ms']:
+	# 		print str(content['ms'])
+
+	ret = []
+	for message in last_messages:
+		# ret.append(message['message']['sender_name'])
+		ret.append(message.body)
+	return (ret)
 
 def messagerie():
 	br = getPage(LOGIN_URL)
-	print  br.response().read()
-	print "__"*45 +"\n"*20
+	#print  br.response().read()
 	find = span_nbMess(br.response())
 	nbMess = re.findall(r".*>(.*)<.*", str(find));
-	print nbMess[0]
-	print "__"*45 + "\n"*20
+	#print nbMess[0]
 	if int(nbMess[0]) != 0:
-		getAuthorsOfMess(MESSAGE_URL)
+		return getThreadsOfMess(MESSAGE_URL)
+	return None
+
+def getUnread():
+	return messagerie()
+
+getUnread()
