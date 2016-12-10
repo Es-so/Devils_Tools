@@ -28,7 +28,6 @@ client = fbchat.Client(USERNAME, PASSWORD);
 
 #__________END___________________________________________________________________#
 
-
 def callBrowser(url):
 	br = Browser()
 	br.set_handle_robots( False )
@@ -58,6 +57,10 @@ def span_nbMess(page_html):
 		if span.get('id') == "mercurymessagesCountValue":
 			return span
 
+def getUserName(uid):
+	_info = client.getUserInfo(uid)
+	name = _info['name']
+	return name
 
 def getListOfAuthors(data):
 	listUnread = []
@@ -71,7 +74,6 @@ def getListOfAuthors(data):
 								'type' : value[0],\
 								'ID' : key,\
 								'nbUnread' : value[3]}))
-
 	# print "FINALE:\n" + str(listUnread)
 	return listUnread
 
@@ -86,20 +88,37 @@ def getThreadsOfMess(url):
 	if (dataMess != None):
 		return getListOfAuthors(dataMess)
 
+def menuMess(target):
+	# friend = client.getUsers(target)
+	# friend_info = client.getUserInfo(friend[0].uid)
+	last_messages = client.getThreadInfo(target,0)
+	last_messages.reverse()  # messages come in reversed order
+	ret = []
+	i = 0
+	for message in last_messages:
+		text = message.body
+		uid = re.findall(r'fbid:([0-9]+)', message.author)
+		# return str(uid[0])
+		_format = str(getUserName(uid[0])) + ": " + text
+		# ret.append(message['message']['sender_name'])
+		ret.append(_format)
+	return (ret)
+
+
 def readMess(target):
 	# friend = client.getUsers(target)
 	# friend_info = client.getUserInfo(friend[0].uid)
 	last_messages = client.getThreadInfo(target,0)
 	last_messages.reverse()  # messages come in reversed order
-	# content = client._parseMessage(last_messages)
-	# if 'ms' not in content: return
-	# 	for m in content['ms']:
-	# 		print str(content['ms'])
-
 	ret = []
+	i = 0
 	for message in last_messages:
+		text = message.body
+		uid = re.findall(r'fbid:([0-9]+)', message.author)
+		# return str(uid[0])
+		_format = str(getUserName(uid[0])) + ": " + text
 		# ret.append(message['message']['sender_name'])
-		ret.append(message.body)
+		ret.append(_format)
 	return (ret)
 
 def messagerie():
@@ -115,4 +134,4 @@ def messagerie():
 def getUnread():
 	return messagerie()
 
-getUnread()
+# getUnread()

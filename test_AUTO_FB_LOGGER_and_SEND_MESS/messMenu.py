@@ -19,9 +19,9 @@ n = curses.A_NORMAL
 MENU = "menu"
 COMMAND = "command"
 EXITMENU = "exitmenu"
-MID = "m"  #personal convers
+MID = "m"  #personal convers /!\ not only
 _ID = "i"  #group
-INFO = 'info'
+INFO = 'info' 
 
 
 menu_data = {
@@ -37,20 +37,28 @@ menu_data = {
           { 'title': "author: ", 'type': INFO, 'ID': 'uid' },
         ]
         },
-        { 'title': "Send new message", 'type': COMMAND, 'command': 'clear' },               #
+        { 'title': "Send new message", 'type': COMMAND, 'command': 'NewMessage' },               #
   ]
 }
 
+message_f = {
+  'title' : "<Sender>: <body>", 'type' : INFO, 'timestamp' : 'timestamp', 'body' : 'body', 'subtitle': "Please select an option...", 
+  'options' : [
+            { 'title' : 'Mark as read', 'type' : COMMAND, 'command' : 'MarkAsRead'},
+            { 'title' : 'Reply', 'type' : COMMAND, 'command' : 'Reply'},
+            { 'title' : 'Decrypt', 'type' : COMMAND, 'command' : 'Decrypt'},
+            { 'title' : 'Reply with encription', 'type' : COMMAND, 'command' : 'cryptReply'},
+        ]}
+
 def fillMenu(menuFormat=menu_data):
+  
   allMess = messageChecker.getUnread()
   for key in allMess:
     if int(key['nbUnread']) > 0:
       menu_data['options'][0]['options'].append(key)
 
-
-
-
-
+#Menu
+#/!\ not dynamic yet
 def runmenu(menu, parent):
 
   if parent is None:
@@ -95,25 +103,32 @@ def runmenu(menu, parent):
 
   return pos
 
+# have to fill menulike for mess
+
+#Selected checker
 def processmenu(menu, parent=None):
 
   optioncount = len(menu['options'])
   exitmenu = False
-  while not exitmenu: #Loop until the user exits the menu
+  while not exitmenu:
     getin = runmenu(menu, parent)
     if getin == optioncount:
         exitmenu = True
     elif menu['options'][getin]['type'] == MENU:
           screen.clear()
-          processmenu(menu['options'][getin], menu) # display the submenu
+          processmenu(menu['options'][getin], menu)
           screen.clear()
     elif menu['options'][getin]['type'] == EXITMENU:
           exitmenu = True
     elif menu['options'][getin]['type'] == MID:
       x = None
       screen.clear()
-      screen.addstr(2,2, str(messageChecker.readMess(menu['options'][getin]['ID'])), curses.A_STANDOUT) 
-      # messageChecker.readMess(menu['options'][getin]['ID'])
+      messages = messageChecker.readMess(menu['options'][getin]['ID'])
+      fi = ''
+      for mess in messages:
+        mess = mess.encode('ascii', 'ignore').decode('ascii')
+        fi += mess + '\n\n'
+      screen.addstr(2,2, fi, curses.A_STANDOUT) 
       while x !=ord('\n'):
         x = screen.getch()
       screen.clear()
