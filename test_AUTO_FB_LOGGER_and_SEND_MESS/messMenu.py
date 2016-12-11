@@ -22,40 +22,42 @@ EXITMENU = "exitmenu"
 MID = "m"  #personal convers /!\ not only
 _ID = "i"  #group
 INFO = 'info' 
+EXT = 'extend'
 
 
 menu_data = {
-  'title': "Message Checker", 'type': MENU, 'subtitle': "Please select an option...",
+  'title': "Message Checker", 'type': MENU, EXT : '', 'subtitle': "Please select an option...",
   'options':[
-        { 'title': "Unread messages", 'type': MENU, 'subtitle': "Please select an option...", #
+        { 'title': "Unread messages", 'type': MENU, EXT : '', 'subtitle': "Please select an option...", #
         'options': [
-            { 'title': "author: ", 'type': INFO, 'ID': 'uid', 'nbUnread' : 'x' },
+            { 'title': "author: ", 'type': INFO, EXT : '', 'ID': 'uid', 'nbUnread' : 'x' },
         ]
         },
-        { 'title': "Sent messages", 'type': MENU, 'subtitle': "Please select an option...",  #
+        { 'title': "Sent messages", 'type': MENU, EXT : '', 'subtitle': "Please select an option...",  #
         'options': [
-          { 'title': "author: ", 'type': INFO, 'ID': 'uid' },
+          { 'title': "author: ", 'type': INFO, EXT : '', 'ID': 'uid' },
         ]
         },
-        { 'title': "Send new message", 'type': COMMAND, 'command': 'NewMessage' },               #
+        { 'title': "Send new message", 'type': COMMAND, EXT : '', 'command': 'NewMessage' },               #
   ]
 }
 
 message_f = {
-  'title' : "<Sender>: <body>", 'type' : INFO, 'timestamp' : 'timestamp', 'body' : 'body', 'subtitle': "Please select an option...", 
+  'title' : "<Sender>: <body>", 'type' : INFO, EXT : '', 'timestamp' : 'timestamp', 'body' : 'body', 'subtitle': "Please select an option...", 
   'options' : [
-            { 'title' : 'Mark as read', 'type' : COMMAND, 'command' : 'MarkAsRead'},
-            { 'title' : 'Reply', 'type' : COMMAND, 'command' : 'Reply'},
-            { 'title' : 'Decrypt', 'type' : COMMAND, 'command' : 'Decrypt'},
-            { 'title' : 'Reply with encription', 'type' : COMMAND, 'command' : 'cryptReply'},
-        ]}
+            { 'title' : 'Mark as read', 'type' : COMMAND, EXT : '', 'command' : 'MarkAsRead'},
+            { 'title' : 'Reply', 'type' : COMMAND, EXT : '', 'command' : 'Reply'},
+            { 'title' : 'Decrypt', 'type' : COMMAND, EXT : '', 'command' : 'Decrypt', 'body' : 'body', 'timestamp' : 'timestamp'},
+            { 'title' : 'Reply with encription', 'type' : COMMAND, EXT : '', 'command' : 'cryptReply'},
+        ]
+}
 
 def fillMenu(menuFormat=menu_data):
   
   allMess = messageChecker.getUnread()
   for key in allMess:
     if int(key['nbUnread']) > 0:
-      menu_data['options'][0]['options'].append(key)
+      menuFormat['options'][0]['options'].append(key)
 
 #Menu
 #/!\ not dynamic yet
@@ -75,7 +77,10 @@ def runmenu(menu, parent):
     if pos != oldpos:
       oldpos = pos
       screen.border(0)
-      screen.addstr(2,2, menu['title'], curses.A_STANDOUT) 
+      if menu[EXT] == 'body':
+        screen.addstr(2,2, menu['body'], curses.A_STANDOUT)
+      else:
+        screen.addstr(2,2, menu['title'], curses.A_STANDOUT) 
       screen.addstr(4,2, menu['subtitle'], curses.A_BOLD) 
       for index in range(optioncount):
         textstyle = n
@@ -90,7 +95,7 @@ def runmenu(menu, parent):
       
     x = screen.getch() 
     
-    if x >= ord('1') and x <= ord(str(optioncount+1)):
+    if x >= ord('1') and x <= ord(str(optioncount+1)[0]):
       pos = x - ord('0') - 1 
     elif x == 258: 
       if pos < optioncount:
@@ -103,7 +108,6 @@ def runmenu(menu, parent):
 
   return pos
 
-# have to fill menulike for mess
 
 #Selected checker
 def processmenu(menu, parent=None):
@@ -116,6 +120,8 @@ def processmenu(menu, parent=None):
         exitmenu = True
     elif menu['options'][getin]['type'] == MENU:
           screen.clear()
+          if menu['options'][getin][EXT] ==  'messages':
+            menu['options'][getin]['options'] = messageChecker.organizeMess(menu['options'][getin]['ID'])
           processmenu(menu['options'][getin], menu)
           screen.clear()
     elif menu['options'][getin]['type'] == EXITMENU:

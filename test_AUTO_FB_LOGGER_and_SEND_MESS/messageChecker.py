@@ -20,12 +20,23 @@ os.system("clear")
 
 #__________DATA_REQUIEREMENT_____________________________________________________#
 
+print __file__
 USERNAME = raw_input('LOGIN/MAIL: '); 
 PASSWORD = raw_input('MDP: ');
 LOGIN_URL = "https://www.facebook.com/login.php"
 MESSAGE_URL = "https://www.facebook.com/messages"
 client = fbchat.Client(USERNAME, PASSWORD);
 
+MENU = 'menu'
+EXT = 'extend'
+COMMAND = "command"
+OPTION_ = []
+OPTIONS = [
+		{ 'title' : 'Mark as read', 'type' : COMMAND, EXT : '', 'command' : 'MarkAsRead'},
+		{ 'title' : 'Reply', 'type' : COMMAND, EXT : '', 'command' : 'Reply'},
+		{ 'title' : 'Decrypt', 'type' : COMMAND, EXT : '', 'command' : 'Decrypt', 'body' : 'body', 'timestamp ': 'timestamp'},
+		{ 'title' : 'Reply with encription', 'type' : COMMAND, EXT : '', 'command' : 'cryptReply'},
+]
 #__________END___________________________________________________________________#
 
 def callBrowser(url):
@@ -35,7 +46,6 @@ def callBrowser(url):
 	br.open(url)
 	return br
 
-
 def startConnect(browser):
 	browser.select_form(nr=0)
 	browser['email'] = USERNAME
@@ -43,13 +53,11 @@ def startConnect(browser):
 	browser.submit()
 	return browser
 
-
 def getPage(url):
 	brPage = callBrowser(url)
 	r = startConnect(brPage)
 	rc = startConnect(brPage)
 	return brPage
-
 
 def span_nbMess(page_html):
 	nb_newMess = BeautifulSoup(page_html, "lxml")
@@ -69,11 +77,17 @@ def getListOfAuthors(data):
 		if len(value[2]) > 2:
 			name = value[1]
 		else:
-			name = client.getUserInfo(str(key))['name']
-		listUnread.append(dict({'title' : name,\
-								'type' : value[0],\
-								'ID' : key,\
-								'nbUnread' : value[3]}))
+			try:
+				name = client.getUserInfo(str(key))['name']
+			except:
+				name = 'Group'
+		listUnread.append(dict({'title'       : name,\
+								'type'        : MENU,\
+								 EXT          : 'messages',\
+								'ID'          : key,\
+								'nbUnread'    : value[3],\
+								'subtitle'    : 'Select a message',\
+								'options'     : OPTION_}))
 	# print "FINALE:\n" + str(listUnread)
 	return listUnread
 
@@ -88,22 +102,26 @@ def getThreadsOfMess(url):
 	if (dataMess != None):
 		return getListOfAuthors(dataMess)
 
-def menuMess(target):
-	# friend = client.getUsers(target)
-	# friend_info = client.getUserInfo(friend[0].uid)
+def organizeMess(target):
 	last_messages = client.getThreadInfo(target,0)
 	last_messages.reverse()  # messages come in reversed order
 	ret = []
 	i = 0
+	message_f = {}
 	for message in last_messages:
 		text = message.body
+		text = text.encode('ascii', 'ignore').decode('ascii')
 		uid = re.findall(r'fbid:([0-9]+)', message.author)
-		# return str(uid[0])
-		_format = str(getUserName(uid[0])) + ": " + text
-		# ret.append(message['message']['sender_name'])
-		ret.append(_format)
+		start = text[0:12] + '...'
+		_format = str(getUserName(uid[0])) + ": " + start
+		ret.append( dict( { 'title'     : _format,\
+							'type'      : MENU,\
+							 EXT        : 'body',
+							'timestamp' : message.timestamp,\
+							'body'      : text,\
+							'subtitle'  : 'Select an action',\
+							'options'   : OPTIONS }))
 	return (ret)
-
 
 def readMess(target):
 	# friend = client.getUsers(target)
